@@ -1,5 +1,4 @@
-# Lista de Produtos responsiva
+# Lista de Produtos Responsiva
 
-#### 4
-### 3
-## 2
+### Tecnologias Utilizadas:
+Next | Typescript | Tailwind 
