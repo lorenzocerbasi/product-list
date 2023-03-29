@@ -7,11 +7,11 @@ const Home = () => {
       <Head>
         <title>Celulares | E-commerce</title>
       </Head>
-      <div className="px-32 py-10 bg-gray-100">
-        <h1 className="mb-10 text-3xl font-semibold">
+      <div className="px-4 sm:px-20 md:px-16 lg:px-28 py-10 bg-gray-100">
+        <h1 className="mb-10 text-3xl font-semibold flex justify-center md:justify-start">
           Celulares
         </h1>
-        <div className="flex justify-between gap-5">
+        <div className="flex justify-center md:justify-between gap-x-4 gap-y-6 flex-wrap">
           <Products />
         </div>
       </div>
