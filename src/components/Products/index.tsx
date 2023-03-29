@@ -82,7 +82,7 @@ export const Products = () => {
             </div>
             <div className="w-full h-[300px]">
               <Image src={product?.image} alt={product?.name} width={250} height={300}
-                className='hover:scale-105 transition-all duration-300 cursor-pointer'
+                className='hover:scale-105 transition-all duration-300 cursor-pointer select-none'
               />
             </div>
             <div className="mt-4">
