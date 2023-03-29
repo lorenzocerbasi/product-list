@@ -11,7 +11,7 @@
     "id": 2,
     "image": "/products/iphone-13-pro-max.png",
     "brand": "Apple",
-    "name": "iPhone 13 Pro Max 1TB",
+    "name": "iPhone 13 Pro 1TB",
     "price": 4650.0,
     "discount_price": 0
   },
@@ -27,7 +27,7 @@
     "id": 4,
     "image": "/products/iphone-11-pro-max.png",
     "brand": "Apple",
-    "name": "iPhone 11 Pro Max 1TB",
+    "name": "iPhone 11 Pro 1TB",
     "price": 3825.0,
     "discount_price": 0
   }

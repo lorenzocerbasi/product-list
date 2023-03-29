@@ -1,5 +1,4 @@
 import Image from "next/image";
-import ListProducts from './products.json'
 import { formatPrice } from "@/utils/format";
 import { Check, HeartStraight } from 'phosphor-react';
 import { useState, useEffect } from 'react';
@@ -7,14 +6,19 @@ import { useState, useEffect } from 'react';
 interface Products {
   id: number;
   image: string;
-  brand: string;
   name: string;
+  brand: string;
   price: number;
-  discount_price: number;
+  discount_price?: number;
 }
 
-export const Products = () => {
-  const listProducts: Products[] = ListProducts;
+interface ProductsProps {
+  listProducts: Products[];
+  search: string;
+  activeFavoriteList: boolean;
+}
+
+export const Products = ({ listProducts, search, activeFavoriteList }: ProductsProps) => {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [addedToCart, setAddedToCart] = useState<number[]>([]);
 
@@ -60,19 +64,27 @@ export const Products = () => {
     }
   };
 
+  const filteredProducts = listProducts.filter((product) =>
+    product.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <>
-      {
-        listProducts?.map((product: Products) =>
+      {filteredProducts?.length === 0
+        ? <p className="text-gray-800">
+          Nenhum resultado encontado.
+        </p>
+        : filteredProducts?.map((product: Products) =>
           <div
             key={product?.id}
-            className="bg-white p-6 3xl:p-8 transition-all rounded-lg border border-transparent hover:border-gray-300 group"
+            className="bg-white p-6 2xl:py-6 2xl:px-10 3xl:py-8 3xl:px-12 transition-all rounded-lg border 
+              border-transparent hover:border-gray-300 group shadow-md"
           >
             <div className="relative transition-all z-10">
               <button
                 onClick={() => handleFavoriteClick(product.id)}
                 className={`absolute right-0 text-black border rounded-full p-2 transition-all
-                  ${favorites.includes(product?.id)
+                    ${favorites.includes(product?.id)
                     ? 'bg-red-500 border-red-500 text-white hover:bg-red-600'
                     : 'bg-white border-gray-300 text-black hover:bg-gray-200'}`
                 }
@@ -117,7 +129,7 @@ export const Products = () => {
               <button
                 onClick={() => handleAddCartClick((product.id))}
                 className={`w-full py-1.5 rounded-md mt-4 font-medium transition-all 3xl:text-xl 
-                  ${addedToCart.includes(product?.id)
+                    ${addedToCart.includes(product?.id)
                     ? 'bg-green-300 text-black hover:bg-green-400'
                     : 'bg-green-500 text-white hover:bg-green-600'}`
                 }
