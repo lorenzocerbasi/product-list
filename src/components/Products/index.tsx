@@ -70,18 +70,18 @@ export const Products = ({ listProducts, search, activeFavoriteList, activeAddCa
   };
 
   // Essa função filtra produtos pelo nome, ignorando maiúsculas e minúsculas, com base em um termo de pesquisa.
-  let filteredProducts = listProducts.filter((product) =>
+  let filteredProducts: Products[] = listProducts.filter((product: Products) =>
     product.name.toLowerCase().includes(search.toLowerCase())
   );
 
   // Essa função filtra os produtos que fazem parte da lista de favoritos.
   if (activeFavoriteList) {
-    filteredProducts = filteredProducts.filter((product) => favorites.includes(product.id));
+    filteredProducts = filteredProducts.filter((product: Products) => favorites.includes(product.id));
   }
 
     // Essa função filtra os produtos que fazem parte do 'carrinho'.
   if (activeAddCartList) {
-    filteredProducts = filteredProducts.filter((product) => addedToCart.includes(product.id));
+    filteredProducts = filteredProducts.filter((product: Products) => addedToCart.includes(product.id));
   }
 
   return (

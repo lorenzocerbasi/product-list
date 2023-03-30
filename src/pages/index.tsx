@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Products } from "@/components/Products";
 import ListProducts from '@/components/Products/products.json'
-import { MagnifyingGlass } from "phosphor-react";
+import { MagnifyingGlass, X } from "phosphor-react";
 import { ChangeEvent, useState } from "react";
 
 interface Products {
@@ -46,13 +46,19 @@ const Home = () => {
             <h3 className="text-xl font-semibold">Listas</h3>
             <button className="w-max" onClick={() => setActiveFavoriteList(!activeFavoriteList)}>
               {activeFavoriteList
-                ? 'X Lista de favoritos'
+                ? <p className="flex items-center gap-2 font-medium">
+                  <X size={18} className="mt-0.5" />
+                  Lista de favoritos
+                </p>
                 : 'Lista de favoritos'
               }
             </button>
             <button className="w-max" onClick={() => setActiveAddCartList(!activeAddCartList)}>
               {activeAddCartList
-                ? 'X Lista dos adicionados'
+                ? <p className="flex items-center gap-2 font-medium">
+                  <X size={18} className="mt-0.5" />
+                  Lista dos adicionados
+                </p>
                 : 'Lista dos adicionados'
               }
             </button>
