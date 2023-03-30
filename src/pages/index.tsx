@@ -35,7 +35,7 @@ const Home = () => {
                 <MagnifyingGlass />
               </div>
               <input
-                placeholder="Pesquisar pelo nome do produto"
+                placeholder="Pesquisar produto"
                 type="text"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
                   focus:border-blue-500 block w-full pl-10 p-2.5"
