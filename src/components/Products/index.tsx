@@ -16,12 +16,14 @@ interface ProductsProps {
   listProducts: Products[];
   search: string;
   activeFavoriteList: boolean;
+  activeAddCartList: boolean;
 }
 
-export const Products = ({ listProducts, search, activeFavoriteList }: ProductsProps) => {
+export const Products = ({ listProducts, search, activeFavoriteList, activeAddCartList }: ProductsProps) => {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [addedToCart, setAddedToCart] = useState<number[]>([]);
 
+  // Carrega as informações dos favoritos salvos no localStorage assim que o componente é montado.
   useEffect(() => {
     const savedFavorites = localStorage.getItem("favorites");
     if (savedFavorites) {
@@ -29,6 +31,7 @@ export const Products = ({ listProducts, search, activeFavoriteList }: ProductsP
     }
   }, []);
 
+  // Carrega as informações dos itens adicionados no 'carrinho' salvos no localStorage assim que o componente é montado.
   useEffect(() => {
     const savedAddedCart = localStorage.getItem("addedToCart");
     if (savedAddedCart) {
@@ -36,6 +39,7 @@ export const Products = ({ listProducts, search, activeFavoriteList }: ProductsP
     }
   }, []);
 
+  // Essa função adiciona ou remove um produto da lista de favoritos, atualizando tanto o estado do componente quanto as informações salvas no localStorage.
   const handleFavoriteClick = (productId: number) => {
     const index = favorites.indexOf(productId);
     if (index === -1) {
@@ -50,6 +54,7 @@ export const Products = ({ listProducts, search, activeFavoriteList }: ProductsP
     }
   };
 
+  // Essa função adiciona ou remove um produto do 'carrinho', atualizando tanto o estado do componente quanto as informações salvas no localStorage.
   const handleAddCartClick = (productId: number) => {
     const index = addedToCart.indexOf(productId);
     if (index === -1) {
@@ -64,9 +69,20 @@ export const Products = ({ listProducts, search, activeFavoriteList }: ProductsP
     }
   };
 
-  const filteredProducts = listProducts.filter((product) =>
+  // Essa função filtra produtos pelo nome, ignorando maiúsculas e minúsculas, com base em um termo de pesquisa.
+  let filteredProducts = listProducts.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Essa função filtra os produtos que fazem parte da lista de favoritos.
+  if (activeFavoriteList) {
+    filteredProducts = filteredProducts.filter((product) => favorites.includes(product.id));
+  }
+
+    // Essa função filtra os produtos que fazem parte do 'carrinho'.
+  if (activeAddCartList) {
+    filteredProducts = filteredProducts.filter((product) => addedToCart.includes(product.id));
+  }
 
   return (
     <>
@@ -77,8 +93,8 @@ export const Products = ({ listProducts, search, activeFavoriteList }: ProductsP
         : filteredProducts?.map((product: Products) =>
           <div
             key={product?.id}
-            className="bg-white p-6 2xl:py-6 2xl:px-10 3xl:py-8 3xl:px-12 transition-all rounded-lg border 
-              border-transparent hover:border-gray-300 group shadow-md"
+            className="bg-white p-6 2xl:py-6 2xl:px-8 3xl:py-8 3xl:px-10 transition-all rounded-lg border 
+              border-transparent group shadow-md hover:border-gray-300"
           >
             <div className="relative transition-all z-10">
               <button
@@ -92,7 +108,7 @@ export const Products = ({ listProducts, search, activeFavoriteList }: ProductsP
                 <HeartStraight size={22} />
               </button>
             </div>
-            <div className="w-full h-[300px]">
+            <div className="w-full flex justify-center">
               <Image src={product?.image} alt={product?.name} width={250} height={300}
                 className='hover:scale-105 transition-all duration-300 cursor-pointer select-none'
               />

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Products } from "@/components/Products";
-import ListProducts from '../components/Products/products.json'
+import ListProducts from '@/components/Products/products.json'
 import { MagnifyingGlass } from "phosphor-react";
 import { ChangeEvent, useState } from "react";
 
@@ -15,15 +15,15 @@ interface Products {
 
 const Home = () => {
   const listProducts: Products[] = ListProducts;
-  const [search, setSearch] = useState<string>('')
   const [activeFavoriteList, setActiveFavoriteList] = useState<boolean>(false)
+  const [activeAddCartList, setActiveAddCartList] = useState<boolean>(false)
+  const [search, setSearch] = useState<string>('')
 
   return (
     <>
       <Head>
         <title>Celulares | E-commerce</title>
       </Head>
-      {/* <div className="px-4 sm:px-20 md:px-16 lg:px-28 py-10 bg-gray-100"> */}
       <div className="px-4 sm:px-14 md:px-16 lg:px-8 py-10 bg-gray-100">
         <h1 className="mb-10 text-3xl font-semibold flex justify-center md:justify-start">
           Celulares
@@ -50,16 +50,19 @@ const Home = () => {
                 : 'Lista de favoritos'
               }
             </button>
-            <p>Lista dos adicionados</p>
-            <h3 className="text-xl font-semibold">Ordenar</h3>
-            <p>Ordenar por preço crescente</p>
-            <p>Ordenar por preço descrescente</p>
+            <button className="w-max" onClick={() => setActiveAddCartList(!activeAddCartList)}>
+              {activeAddCartList
+                ? 'X Lista dos adicionados'
+                : 'Lista dos adicionados'
+              }
+            </button>
           </div>
-          <div className="flex justify-center md:justify-between gap-x-4 gap-y-6 flex-wrap w-full">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-x-2 gap-y-6">
             <Products
               listProducts={listProducts}
               search={search}
               activeFavoriteList={activeFavoriteList}
+              activeAddCartList={activeAddCartList}
             />
           </div>
         </div>
